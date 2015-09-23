@@ -2,27 +2,23 @@
 
 set -e
 
-BIN_PATH="$1/.wkhtmltopdf"
+BIN_PATH="$1/.wkhtmltox"
 TMP_PATH="$1/tmp"
-mkdir -p $BIN_PATH $TMP_PATH
 
-WKHTMLTOPDF_URL="https://bitbucket.org/wkhtmltopdf/wkhtmltopdf/downloads/wkhtmltox-0.12.3-dev-79ff51e_linux-generic-amd64.tar.xz"
+WKHTMLTOX_URL="https://bitbucket.org/wkhtmltopdf/wkhtmltopdf/downloads/wkhtmltox-0.12.3-dev-79ff51e_linux-generic-amd64.tar.xz"
 
-echo "-----> Downloading wkhtmltopdf package"
-curl -L $WKHTMLTOPDF_URL -o $TMP_PATH/wkhtmltox.tar.xz
+echo "-----> Downloading wkhtmltox package"
+curl -L $WKHTMLTOX_URL -o $TMP_PATH/wkhtmltox.tar.xz
 
-echo "-----> Unpacking wkhtmltopdf package"
+echo "-----> Unpacking wkhtmltox package"
 tar -xf $TMP_PATH/wkhtmltox.tar.xz -C $TMP_PATH
 
 echo "-----> Moving binaries to the right place"
-mv $TMP_PATH/wkhtmltox/bin/wkhtmltopdf $BIN_PATH/
-
-echo "-----> Cleaning up"
-rm -rf $TMP_PATH/wkhtmltox
+mv $TMP_PATH/wkhtmltox $BIN_PATH
 
 echo "-----> Adjusting environment variables"
 mkdir -p $1/.profile.d
-echo "export PATH=\$PATH:/app/.wkhtmltopdf" > $1/.profile.d/wkhtmltopdf.sh
-chmod +x $1/.profile.d/wkhtmltopdf.sh
+echo "export PATH=\$PATH:/app/.wkhtmltox/bin" > $1/.profile.d/wkhtmltox.sh
+chmod +x $1/.profile.d/wkhtmltox.sh
 
 exit 0
