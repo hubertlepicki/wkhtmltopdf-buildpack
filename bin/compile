@@ -6,25 +6,19 @@ BIN_PATH="$1/.wkhtmltopdf"
 TMP_PATH="$1/tmp"
 mkdir -p $BIN_PATH $TMP_PATH
 
-WKHTMLTOPDF_URL="http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb"
-WKHTMLTOPDF_PKG="$TMP_PATH/wkhtmltopdf.deb"
-WKHTMLTOPDF_PATH="$TMP_PATH/wkhtmltopdf"
-WKHTMLTOPDF_BINARIES="$WKHTMLTOPDF_PATH/usr/local/bin"
+WKHTMLTOPDF_URL="https://bitbucket.org/wkhtmltopdf/wkhtmltopdf/downloads/wkhtmltox-0.12.3-dev-79ff51e_linux-generic-amd64.tar.xz"
 
-echo "-----> Downloading wkhtmltopdf Debian package"
-curl -L $WKHTMLTOPDF_URL -o $WKHTMLTOPDF_PKG
+echo "-----> Downloading wkhtmltopdf package"
+curl -L $WKHTMLTOPDF_URL -o $TMP_PATH/wkhtmltox.tar.xz
 
-echo "-----> Unpacking Debian package"
-dpkg -x $WKHTMLTOPDF_PKG $WKHTMLTOPDF_PATH
-
-echo "-----> Setting permissions"
-chmod +x $WKHTMLTOPDF_BINARIES/*
+echo "-----> Unpacking wkhtmltopdf package"
+tar -xf $TMP_PATH/wkhtmltox.tar.xz -C $TMP_PATH
 
 echo "-----> Moving binaries to the right place"
-mv $WKHTMLTOPDF_BINARIES/* $BIN_PATH/
+mv $TMP_PATH/wkhtmltox/bin/wkhtmltopdf $BIN_PATH/
 
 echo "-----> Cleaning up"
-rm -rf $WKHTMLTOPDF_PKG $WKHTMLTOPDF_PATH
+rm -rf $TMP_PATH/wkhtmltox
 
 echo "-----> Adjusting environment variables"
 mkdir -p $1/.profile.d
