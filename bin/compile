@@ -27,7 +27,7 @@ echo "-----> Cleaning up"
 rm -rf $WKHTMLTOPDF_PKG $WKHTMLTOPDF_PATH
 
 echo "-----> Adjusting environment variables"
-mkdir $1/.profile.d
+mkdir -p $1/.profile.d
 echo "export PATH=\$PATH:/app/.wkhtmltopdf" > $1/.profile.d/wkhtmltopdf.sh
 chmod +x $1/.profile.d/wkhtmltopdf.sh
 
