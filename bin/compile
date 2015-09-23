@@ -4,6 +4,7 @@ set -e
 
 BIN_PATH="$1/.wkhtmltox"
 TMP_PATH="$1/tmp"
+mkdir -p $TMP_PATH
 
 WKHTMLTOX_URL="https://bitbucket.org/wkhtmltopdf/wkhtmltopdf/downloads/wkhtmltox-0.12.3-dev-79ff51e_linux-generic-amd64.tar.xz"
 
